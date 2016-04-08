@@ -12,6 +12,7 @@ typedef struct s_proc proc;
 void stampa(proc*);
 proc* sjf(proc*);
 int cmpfunc(const void * a, const void * b);
+proc* copia(proc*);
 
 int main(){
   proc *processi;
@@ -27,11 +28,12 @@ int main(){
 }
 
 proc* sjf(proc *processi){
-  proc *pnew;//=(proc*)malloc(N_PROCESSI*sizeof(proc));
+  proc *pnew;
+  pnew=copia(processi);//=(proc*)malloc(N_PROCESSI*sizeof(proc));
   int i=0;
   int j=0;
 
-  qsort(processi,N_PROCESSI,sizeof(proc),cmpfunc);
+  qsort(pnew,N_PROCESSI,sizeof(proc),cmpfunc);
 
   return processi;
 }
@@ -41,6 +43,16 @@ int cmpfunc (const void * a, const void * b){
   const proc *elem2=b;
   return (*elem1).cpuBurst - (*elem2).cpuBurst;
 
+}
+
+proc* copia(proc* processi){
+  proc* nuovo;
+  nuovo=(proc*)malloc(N_PROCESSI*sizeof(proc));
+  int i=0;
+  for(int i=0; i<N_PROCESSI; i++){
+    nuovo[i]=processi[i];
+  }
+  return nuovo;
 }
 
 void stampa(proc *processi){
