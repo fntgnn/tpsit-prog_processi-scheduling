@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define N_PROCESSI 3
+#define N_PROCESSI 4
 #define TIME_SLICE 4
 
 struct s_proc{
@@ -32,6 +32,7 @@ int main(){
   stampa(processi);
   printf("Shortest Job First:\n");
   stampa(sjf(processi));
+  printf("\nRound Robin:\n");
   rr(processi);
   return 0;
 }
@@ -44,7 +45,7 @@ proc* sjf(proc *processi){
 
   qsort(pnew,N_PROCESSI,sizeof(proc),cmpfunc);
 
-  return processi;
+  return pnew;
 }
 
 void rr(proc *processi){
